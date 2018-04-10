@@ -21,19 +21,14 @@ var xlsx = require('xlsx');
 
 
 app.get('/', function(req, res){
-    res.render('index.html');
-});
-app.get('/client', function(req, res){
     res.render('client.html');
 });
 
-
 function getCol(fileName){
-  var workbook = xlsx.readFile(fileName);
-  var json = xlsx.utils.sheet_to_json(workbook.Sheets[0]);
-
-
-  console.log(json);
+  const workbook = xlsx.readFile(fileName);
+  var firstSheetName = workbook.SheetNames[0];
+  var resData = xlsx.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
+  console.log(resData);
 };
 
 app.post ('/upload', upload.single('userfile'), function(req, res){
